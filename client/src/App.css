@@ -2,7 +2,7 @@ img {
   width: 100%;
 }
 
-.home {
+.landing {
   position: relative;
   background: url('./img/parked.jpeg') no-repeat;
   background-size: cover;

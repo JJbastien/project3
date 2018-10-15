@@ -1,7 +1,8 @@
 const express = require ('express');
 const mongoose = require('mongoose');
-const user = require('./routes/api/user');
-const student = require('./routes/api/student');
+const users = require('./routes/api/users');
+const profile = require('./routes/api/profile');
+const posts = require('./routes/api/posts');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 
@@ -18,9 +19,9 @@ mongoose.connect(db)
 app.use(passport.initialize())
 require('./config/strategy')(passport)
 
-
-app.use('/api/user', user);
-app.use('/api/student', student);
+app.use('/api/users', users);
+app.use('/api/profile', profile);
+app.use('/api/posts', posts);
 
 const port = process.env.PORT || 5000;
 
