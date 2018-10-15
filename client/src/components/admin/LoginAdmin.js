@@ -4,25 +4,24 @@ import React, { Component } from 'react'
      constructor(){
         super();
         this.state ={
-            email: '',
+            email:'',
             password:'',
-            errors: ''
+            errors:''
         };
         this.onChange = this.onChange.bind(this);
-        this.onsubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 }
      onChange(e){
         this.setState({[e.target.name]:e.target.value})
      }   
      onSubmit(e){
          e.preventDefault();
-         const newUser = {
-            
+         const User = {
             email:this.state.email,
             password:this.state.password,
           
          };
-        console.log(newUser)
+        console.log(User)
      }  
   render() {
     return (
@@ -35,7 +34,7 @@ import React, { Component } from 'react'
                 <p className="lead text-center">Scheduler</p>
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">
-                    <input type="email" className="form-control form-control-lg" placeholder="Email Address" name="email" value={this.state.emai} onChange={this.onChange} />
+                    <input type="email" className="form-control form-control-lg" placeholder="Email Address" name="email" value={this.state.email} onChange={this.onChange} />
                     <small className="form-text text-muted"></small>
                   </div>
                   <div className="form-group">

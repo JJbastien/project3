@@ -14,7 +14,7 @@ import {Link} from 'react-router-dom';
                         </h1>
                         <p className="lead">Create Link new Student account</p>
                         <hr />
-                        <Link to="/Home" className="btn btn-lg btn-info mr-2">Adminstrator Home</Link>
+                        <Link to="/" className="btn btn-lg btn-info mr-2">Adminstrator Home</Link>
                         <Link to="/Scheduler" className="btn btn-lg btn-light">Scheduler</Link>
                     </div>
                     </div>

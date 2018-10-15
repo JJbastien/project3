@@ -2,7 +2,7 @@ const express = require ('express');
 const router = express.Router();
 const User = require('../../models/User')
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys')
 const passport = require('passport');
 
@@ -10,7 +10,7 @@ router.get('/test', (req, res) => res.json({msg: 'user works'}));
 // registration route
 
 router.post('/register', (req, res)=>{
-    User.findOne({email: req.body})
+    User.findOne({email: req.body.email})
     .then(user =>{
         if(user){
             return res.status(404).json({email :'email already exists'})
@@ -20,7 +20,7 @@ router.post('/register', (req, res)=>{
                 email:req.body.email,
                 password:req.body.password
             })
-            bcryp.genSalt(10, (err, salt)=>{
+            bcrypt.genSalt(10, (err, salt)=>{
                 bcrypt.hash(newUser.password, salt, (err, hash)=>{
                     if(err) throw err;
                     newUser.password = hash;
@@ -42,15 +42,15 @@ router.post('/register', (req, res)=>{
             if(!user){
                 return res.status(404).json({email:'email not found'})
             }
-            bcrypt.compare(password, user.password).
-            then(isMatch =>{
+            bcrypt.compare(password, user.password)
+            .then(isMatch =>{
                if (isMatch)
                {
                    const payload = {
                        id:user.id,
-                       name:user.id,
-                    }
-                    jwt.sign(payload, keys.secretorKey, {expiresIn: 36000},
+                       name:user.name
+                    };
+                    jwt.sign(payload, keys.secretOrKey, {expiresIn: 36000},
                         (err, token) => {
                             res.json({
                                 success:true, 
@@ -65,5 +65,10 @@ router.post('/register', (req, res)=>{
             })
         })
     })
+
+    //this is a protecte route for a user that is logged in
+    router.get('/current', passport.authenticate('jwt', {session: false}),(req, res)=>{
+        res.json(req.user)
+    } )
 
 module.exports = router;
